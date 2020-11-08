@@ -34,12 +34,12 @@ public class MainMenuScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        font.draw(batch, "Get ready for the race", GameViewport.width()/2f, GameViewport.height()/2f);
-        font.draw(batch, "Tap anything to begin", GameViewport.width()/2f, GameViewport.height()/2f - 96);
+        font.draw(batch, "Get ready for the race", GameViewport.width() / 2f, GameViewport.height() / 2f);
+        font.draw(batch, "Tap anything to begin", GameViewport.width() / 2f, GameViewport.height() / 2f - 96);
         batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen());
             dispose();
         }
     }
