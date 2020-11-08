@@ -6,14 +6,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import io.github.kubaue.raceGame.engine.Car;
 import io.github.kubaue.raceGame.ui.GameViewport;
 
-public class Car extends Component {
+public class CarComponent extends Component {
 
     private Texture carImage;
     private Rectangle carShape;
+    private Car car;
 
-    public Car(BitmapFont font, SpriteBatch spriteBatch) {
+    public CarComponent(BitmapFont font, SpriteBatch spriteBatch) {
         super(font, spriteBatch);
         carImage = new Texture(Gdx.files.internal("carSlim.png"));
 

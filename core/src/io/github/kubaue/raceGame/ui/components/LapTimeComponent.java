@@ -6,11 +6,11 @@ import io.github.kubaue.raceGame.ui.GameViewport;
 
 import java.util.Date;
 
-public class LapTime extends Component {
+public class LapTimeComponent extends Component {
 
     private Date lapStartTime = new Date();
 
-    public LapTime(BitmapFont font, SpriteBatch spriteBatch) {
+    public LapTimeComponent(BitmapFont font, SpriteBatch spriteBatch) {
         super(font, spriteBatch);
     }
 

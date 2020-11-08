@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.kubaue.raceGame.ui.GameViewport;
-import io.github.kubaue.raceGame.ui.components.Car;
+import io.github.kubaue.raceGame.ui.components.CarComponent;
 import io.github.kubaue.raceGame.ui.components.Component;
-import io.github.kubaue.raceGame.ui.components.LapTime;
-import io.github.kubaue.raceGame.ui.components.Map;
+import io.github.kubaue.raceGame.ui.components.LapTimeComponent;
+import io.github.kubaue.raceGame.ui.components.MapComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,9 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, GameViewport.width(), GameViewport.height());
         gameViewport = new GameViewport(camera);
 
-        components.add(new Map(font, spriteBatch));
-        components.add(new LapTime(font, spriteBatch));
-        components.add(new Car(font, spriteBatch));
+        components.add(new MapComponent(font, spriteBatch));
+        components.add(new CarComponent(font, spriteBatch));
+        components.add(new LapTimeComponent(font, spriteBatch));
     }
 
     @Override

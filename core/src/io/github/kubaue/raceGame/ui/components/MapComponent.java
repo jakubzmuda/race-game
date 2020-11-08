@@ -8,12 +8,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import io.github.kubaue.raceGame.ui.GameViewport;
 
-public class Map extends Component {
+public class MapComponent extends Component {
 
     private Rectangle mapShape;
     private Texture mapTexture;
 
-    public Map(BitmapFont font, SpriteBatch spriteBatch) {
+    public MapComponent(BitmapFont font, SpriteBatch spriteBatch) {
         super(font, spriteBatch);
 
         int width = GameViewport.width();
