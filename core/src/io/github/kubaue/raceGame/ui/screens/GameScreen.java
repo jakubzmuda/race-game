@@ -30,6 +30,7 @@ public class GameScreen implements Screen {
     private BitmapFont font;
     private long lastDropTime;
     private int dropsGathered;
+    private GameViewport gameViewport;
 
     public GameScreen(final RaceGame gam) {
         this.game = gam;
@@ -42,6 +43,7 @@ public class GameScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, GameViewport.width(), GameViewport.height());
+        gameViewport = new GameViewport(camera);
 
         bucket = new Rectangle();
         bucket.x = GameViewport.width() / 2f - 64 / 2f;
@@ -51,7 +53,6 @@ public class GameScreen implements Screen {
 
         raindrops = new Array<>();
         spawnRaindrop();
-
     }
 
     private void spawnRaindrop() {
@@ -66,7 +67,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+        Gdx.gl.glClearColor(0, 0, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -83,7 +84,7 @@ public class GameScreen implements Screen {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
-            bucket.x = touchPos.x - 64 / 2;
+            bucket.x = touchPos.x - 64 / 2f;
         }
         if (Gdx.input.isKeyPressed(Keys.LEFT))
             bucket.x -= 200 * Gdx.graphics.getDeltaTime();
@@ -113,6 +114,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        gameViewport.update(width, height);
     }
 
     @Override
