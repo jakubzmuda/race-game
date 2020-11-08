@@ -3,7 +3,7 @@ package io.github.kubaue.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import io.github.kubaue.RaceGame;
+import io.github.kubaue.raceGame.ui.RaceGame;
 
 public class HtmlLauncher extends GwtApplication {
 

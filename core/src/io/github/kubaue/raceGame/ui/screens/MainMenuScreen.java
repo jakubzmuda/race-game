@@ -1,20 +1,26 @@
-package io.github.kubaue;
+package io.github.kubaue.raceGame.ui.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.kubaue.raceGame.ui.RaceGame;
 
 public class MainMenuScreen implements Screen {
-    final RaceGame game;
-    OrthographicCamera camera;
 
-    public MainMenuScreen(final RaceGame gam) {
-        game = gam;
+    private final RaceGame game;
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private OrthographicCamera camera;
 
+    public MainMenuScreen(RaceGame raceGame) {
+        this.game = raceGame;
+        batch = new SpriteBatch();
+        font = new BitmapFont();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
-
     }
 
     @Override
@@ -23,12 +29,12 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
-        game.batch.end();
+        batch.begin();
+        font.draw(batch, "Welcome to Drop!!! ", 100, 150);
+        font.draw(batch, "Tap anywhere to begin!", 100, 100);
+        batch.end();
 
         if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));
@@ -58,5 +64,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
+        font.dispose();
     }
 }

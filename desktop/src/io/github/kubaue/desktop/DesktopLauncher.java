@@ -2,7 +2,7 @@ package io.github.kubaue.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import io.github.kubaue.RaceGame;
+import io.github.kubaue.raceGame.ui.RaceGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

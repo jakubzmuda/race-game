@@ -1,4 +1,4 @@
-package io.github.kubaue;
+package io.github.kubaue.raceGame.ui.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -6,45 +6,48 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import io.github.kubaue.raceGame.ui.RaceGame;
 
 import java.util.Iterator;
 
 public class GameScreen implements Screen {
-    final RaceGame game;
 
-    Texture dropImage;
-    Texture bucketImage;
-    OrthographicCamera camera;
-    Rectangle bucket;
-    Array<Rectangle> raindrops;
-    long lastDropTime;
-    int dropsGathered;
+    private final RaceGame game;
+    private Texture dropImage;
+    private Texture bucketImage;
+    private OrthographicCamera camera;
+    private Rectangle bucket;
+    private Array<Rectangle> raindrops;
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private long lastDropTime;
+    private int dropsGathered;
 
     public GameScreen(final RaceGame gam) {
         this.game = gam;
 
-        // load the images for the droplet and the bucket, 64x64 pixels each
+        batch = new SpriteBatch();
+        font = new BitmapFont();
+
         dropImage = new Texture(Gdx.files.internal("droplet.png"));
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
-        // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 1920, 1080);
 
-        // create a Rectangle to logically represent the bucket
         bucket = new Rectangle();
         bucket.x = 800 / 2 - 64 / 2; // center the bucket horizontally
         bucket.y = 20; // bottom left corner of the bucket is 20 pixels above
-        // the bottom screen edge
         bucket.width = 64;
         bucket.height = 64;
 
-        // create the raindrops array and spawn the first raindrop
         raindrops = new Array<Rectangle>();
         spawnRaindrop();
 
@@ -74,17 +77,17 @@ public class GameScreen implements Screen {
 
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
-        game.batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
         // begin a new batch and draw the bucket and
         // all drops
-        game.batch.begin();
-        game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 480);
-        game.batch.draw(bucketImage, bucket.x, bucket.y);
+        batch.begin();
+        font.draw(batch, "Drops Collected: " + dropsGathered, 0, 480);
+        batch.draw(bucketImage, bucket.x, bucket.y);
         for (Rectangle raindrop : raindrops) {
-            game.batch.draw(dropImage, raindrop.x, raindrop.y);
+            batch.draw(dropImage, raindrop.x, raindrop.y);
         }
-        game.batch.end();
+        batch.end();
 
         // process user input
         if (Gdx.input.isTouched()) {
@@ -147,6 +150,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
+        font.dispose();
         dropImage.dispose();
         bucketImage.dispose();
     }
