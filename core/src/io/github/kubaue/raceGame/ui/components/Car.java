@@ -15,13 +15,16 @@ public class Car extends Component {
 
     public Car(BitmapFont font, SpriteBatch spriteBatch) {
         super(font, spriteBatch);
-        carImage = new Texture(Gdx.files.internal("car.png"));
+        carImage = new Texture(Gdx.files.internal("carSlim.png"));
+
+        int width = 128;
+        int height = 80;
 
         carShape = new Rectangle();
-        carShape.x = GameViewport.width() / 2f - 64 / 2f;
-        carShape.y = 20;
-        carShape.width = 64;
-        carShape.height = 64;
+        carShape.x = GameViewport.width() / 2f - width / 2f;
+        carShape.y = GameViewport.height() / 2f - height / 2f;
+        carShape.width = width;
+        carShape.height = height;
     }
 
     @Override
@@ -34,10 +37,6 @@ public class Car extends Component {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             carShape.x += 200 * Gdx.graphics.getDeltaTime();
         }
-        if (carShape.x < 0)
-            carShape.x = 0;
-        if (carShape.x > GameViewport.width() - 64)
-            carShape.x = GameViewport.width() - 64;
     }
 
     @Override
