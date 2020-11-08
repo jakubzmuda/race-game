@@ -46,7 +46,9 @@ public class GameScreen implements Screen {
 
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-        components.forEach(Component::render);
+        for (Component component : components) {
+            component.render();
+        }
         spriteBatch.end();
     }
 
