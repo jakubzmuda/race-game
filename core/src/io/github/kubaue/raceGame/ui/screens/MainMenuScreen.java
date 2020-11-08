@@ -1,11 +1,13 @@
 package io.github.kubaue.raceGame.ui.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.kubaue.raceGame.ui.GameViewport;
 import io.github.kubaue.raceGame.ui.RaceGame;
 
 public class MainMenuScreen implements Screen {
@@ -20,7 +22,7 @@ public class MainMenuScreen implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, GameViewport.width(), GameViewport.height());
     }
 
     @Override
@@ -32,11 +34,11 @@ public class MainMenuScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        font.draw(batch, "Welcome to Drop!!! ", 100, 150);
-        font.draw(batch, "Tap anywhere to begin!", 100, 100);
+        font.draw(batch, "Get ready for the race", GameViewport.width()/2f, GameViewport.height()/2f);
+        font.draw(batch, "Tap anything to begin", GameViewport.width()/2f, GameViewport.height()/2f - 96);
         batch.end();
 
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
             game.setScreen(new GameScreen(game));
             dispose();
         }
