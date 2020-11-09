@@ -24,7 +24,7 @@ public class Car {
 
     public Car nextTick(List<GameAction> gameActions) {
         Vector2 newAcceleration = accelerate(gameActions);
-        Vector2 newSpeed = new Vector2(speed).add(newAcceleration);
+        Vector2 newSpeed = new Vector2(speed).add(newAcceleration).limit(10f);
         Vector2 newPosition = new Vector2(position).add(newSpeed);
         return new Car(newPosition, rotationInDeg, newSpeed);
     }
