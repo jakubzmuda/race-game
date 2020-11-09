@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import io.github.kubaue.raceGame.engine.GameEngine;
 import io.github.kubaue.raceGame.ui.GameViewport;
 
 public class MapComponent extends Component {
@@ -13,7 +14,7 @@ public class MapComponent extends Component {
     private Rectangle mapShape;
     private Texture mapTexture;
 
-    public MapComponent(BitmapFont font, SpriteBatch spriteBatch) {
+    public MapComponent(BitmapFont font, SpriteBatch spriteBatch, GameEngine gameEngine) {
         super(font, spriteBatch);
 
         int width = GameViewport.width();
@@ -28,7 +29,7 @@ public class MapComponent extends Component {
     }
 
     @Override
-    public void render() {
+    public void render(GameEngine gameEngine) {
         spriteBatch.draw(mapTexture, mapShape.x, mapShape.y);
     }
 

@@ -1,48 +1,52 @@
 package io.github.kubaue.raceGame.ui.components;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import io.github.kubaue.raceGame.engine.Car;
-import io.github.kubaue.raceGame.ui.GameViewport;
+import io.github.kubaue.raceGame.engine.GameEngine;
 
 public class CarComponent extends Component {
 
     private Texture carImage;
-    private Rectangle carShape;
-    private Car car;
+    private Sprite carSprite;
 
-    public CarComponent(BitmapFont font, SpriteBatch spriteBatch) {
+    public CarComponent(BitmapFont font, SpriteBatch spriteBatch, GameEngine gameEngine) {
         super(font, spriteBatch);
-        carImage = new Texture(Gdx.files.internal("carSlim.png"));
-
-        int width = 128;
-        int height = 80;
-
-        carShape = new Rectangle();
-        carShape.x = GameViewport.width() / 2f - width / 2f;
-        carShape.y = GameViewport.height() / 2f - height / 2f;
-        carShape.width = width;
-        carShape.height = height;
+        Car car = gameEngine.car();
+        carImage = carImage();
+        carSprite = prepareCarSprite(carImage, car);
+        updatePosition(car.position().x, car.position().y);
     }
 
     @Override
-    public void render() {
-        spriteBatch.draw(carImage, carShape.x, carShape.y);
-
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            carShape.x -= 200 * Gdx.graphics.getDeltaTime();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            carShape.x += 200 * Gdx.graphics.getDeltaTime();
-        }
+    public void render(GameEngine gameEngine) {
+        Car car = gameEngine.car();
+        updatePosition(car.position().x, car.position().y);
+        updateRotation(car.rotationInDeg());
+        carSprite.draw(spriteBatch);
     }
 
     @Override
     public void dispose() {
         carImage.dispose();
+    }
+
+    private void updatePosition(float x, float y) {
+        carSprite.setPosition(x, y);
+    }
+
+    private void updateRotation(float rotationInDeg) {
+        carSprite.setRotation(rotationInDeg);
+    }
+
+    private Sprite prepareCarSprite(Texture carImage, Car car) {
+        return new Sprite(carImage, 0, 0, car.width(), car.height());
+    }
+
+    private Texture carImage() {
+        return new Texture(Gdx.files.internal("carSlim.png"));
     }
 }

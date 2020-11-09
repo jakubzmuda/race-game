@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import io.github.kubaue.raceGame.engine.GameEngine;
 import io.github.kubaue.raceGame.ui.GameViewport;
+import io.github.kubaue.raceGame.ui.InputProcessor;
 import io.github.kubaue.raceGame.ui.components.CarComponent;
 import io.github.kubaue.raceGame.ui.components.Component;
 import io.github.kubaue.raceGame.ui.components.LapTimeComponent;
@@ -21,6 +23,8 @@ public class GameScreen implements Screen {
     private SpriteBatch spriteBatch;
     private BitmapFont font;
     private GameViewport gameViewport;
+    private GameEngine gameEngine = new GameEngine();
+    private InputProcessor inputProcessor = new InputProcessor();
 
     private List<Component> components = new ArrayList<>();
 
@@ -33,9 +37,9 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, GameViewport.width(), GameViewport.height());
         gameViewport = new GameViewport(camera);
 
-        components.add(new MapComponent(font, spriteBatch));
-        components.add(new CarComponent(font, spriteBatch));
-        components.add(new LapTimeComponent(font, spriteBatch));
+        components.add(new MapComponent(font, spriteBatch, gameEngine));
+        components.add(new CarComponent(font, spriteBatch, gameEngine));
+        components.add(new LapTimeComponent(font, spriteBatch, gameEngine));
     }
 
     @Override
@@ -44,10 +48,12 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
 
+        this.gameEngine = gameEngine.nextTick(inputProcessor.actionsFromInput());
+
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         for (Component component : components) {
-            component.render();
+            component.render(gameEngine);
         }
         spriteBatch.end();
     }
