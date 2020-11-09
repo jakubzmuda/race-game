@@ -19,7 +19,7 @@ public class MapComponent extends Component {
 
         int width = GameViewport.width();
         int height = GameViewport.height();
-        mapTexture = createTexture(width, height, new Color(0, 0.2f, 0, 1));
+        mapTexture = createTexture(width, height, new Color(0.2f, 0.2f, 0.2f, 1));
 
         mapShape = new Rectangle();
         mapShape.x = 0;
