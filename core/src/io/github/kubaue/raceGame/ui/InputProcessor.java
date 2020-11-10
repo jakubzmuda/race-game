@@ -18,6 +18,12 @@ public class InputProcessor {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
             actions.add(GameAction.BRAKE);
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+            actions.add(GameAction.TURN_LEFT);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+            actions.add(GameAction.TURN_RIGHT);
+        }
 
         return actions;
     }
