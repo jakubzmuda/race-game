@@ -12,7 +12,7 @@ import io.github.kubaue.raceGame.ui.InputProcessor;
 import io.github.kubaue.raceGame.ui.components.CarComponent;
 import io.github.kubaue.raceGame.ui.components.Component;
 import io.github.kubaue.raceGame.ui.components.LapTimeComponent;
-import io.github.kubaue.raceGame.ui.components.MapComponent;
+import io.github.kubaue.raceGame.ui.components.TrackComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, GameViewport.width(), GameViewport.height());
         gameViewport = new GameViewport(camera);
 
-        components.add(new MapComponent(font, spriteBatch, gameEngine));
+        components.add(new TrackComponent(font, spriteBatch, gameEngine));
         components.add(new CarComponent(font, spriteBatch, gameEngine));
         components.add(new LapTimeComponent(font, spriteBatch, gameEngine));
     }

@@ -13,7 +13,7 @@ public class Car {
     private Vector2 speed = new Vector2();
 
     public Car(Vector2 position, float rotationInDeg) {
-        this.position = position;
+        this.position = new Vector2(position.x - width() / 2f, position.y - height() / 2f);
         this.rotationInDeg = rotationInDeg;
     }
 
@@ -28,7 +28,7 @@ public class Car {
         float newRotationFactor = rotate(gameActions);
         Vector2 newSpeed = new Vector2(speed)
                 .add(newAcceleration)
-                .limit(12f)
+                .limit(8f)
                 .rotateDeg(newRotationFactor);
         Vector2 newPosition = new Vector2(position).add(newSpeed);
         return new Car(newPosition, rotationInDeg + newRotationFactor, newSpeed);
@@ -51,11 +51,11 @@ public class Car {
 
     private Vector2 accelerate(List<GameAction> gameActions) {
         if (gameActions.contains(GameAction.BRAKE)) {
-            return slowDown(0.2f);
+            return slowDown(0.1f);
         } else if (gameActions.contains(GameAction.ACCELERATE)) {
-            return new Vector2(0.1f, 0).rotateDeg(rotationInDeg);
+            return new Vector2(0.05f, 0).rotateDeg(rotationInDeg);
         } else {
-            return slowDown(0.01f);
+            return slowDown(0.05f);
         }
     }
 
@@ -76,11 +76,11 @@ public class Car {
     }
 
     public int width() {
-        return 128;
+        return 96;
     }
 
     public int height() {
-        return 80;
+        return 60;
     }
 
 }
