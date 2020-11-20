@@ -12,10 +12,11 @@ public class CarComponent extends Component {
 
     private Texture carImage;
     private Sprite carSprite;
+    private Car car;
 
     public CarComponent(BitmapFont font, SpriteBatch spriteBatch, GameEngine gameEngine) {
         super(font, spriteBatch);
-        Car car = gameEngine.car();
+        car = gameEngine.car();
         carImage = carImage();
         carSprite = prepareCarSprite(carImage, car);
         updatePosition(car.position().x, car.position().y);
@@ -35,7 +36,7 @@ public class CarComponent extends Component {
     }
 
     private void updatePosition(float x, float y) {
-        carSprite.setPosition(x, y);
+        carSprite.setPosition(x - car.width() / 2f, y - car.height() / 2f);
     }
 
     private void updateRotation(float rotationInDeg) {
