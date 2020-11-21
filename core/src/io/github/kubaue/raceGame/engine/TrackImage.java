@@ -25,7 +25,7 @@ public class TrackImage {
     }
 
     public boolean isWithinTrackLimits(Vector2 position) {
-        ImageCanals imageCanals = trackImageMap.get(Math.round(position.x), Math.round(position.y));
+        ImageCanals imageCanals = trackImageMap.get(Math.round(position.x), height() - Math.round(position.y));
         return !imageCanals.equals(new ImageCanals(78, 76, 76));
     }
 
